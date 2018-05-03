@@ -1,6 +1,5 @@
 package com.acostek.fuzim.controller;
 
-import com.acostek.fuzim.util.CoordDeal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +21,7 @@ public class GPSInfoController {
         Map map = new HashMap();
         try {
             fullInfo = net("GET","","http://faultest.com:8080/templefuzi/gps/getAllNowGPS",map,"");
+//            System.out.println("111"+fullInfo.toString());
             coord = coordDeal(fullInfo);//GPS坐标处理
         } catch (Exception e) {
             e.printStackTrace();

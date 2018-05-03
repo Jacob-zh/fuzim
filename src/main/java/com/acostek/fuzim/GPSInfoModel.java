@@ -8,10 +8,11 @@ public class GPSInfoModel {
     private String gpsModeInd;//工作模式
 
     private double speed;
-    private String gpsLatdir;
-    private double latitude;
-    private String gpsLondir;
+    private String gpsLondir;//经度
     private double longitude;
+    private String gpsLatdir;//纬度
+    private double latitude;
+
 
     private String gpsVardir;//磁偏角
     private double gpsMagvar;
