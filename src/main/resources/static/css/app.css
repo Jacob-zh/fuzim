@@ -1,0 +1,30 @@
+/* Write your styles */
+.fz-tabs-round{
+    margin: 0em;
+    border: solid 5px #dddddd;
+    padding: 0px;
+    height: 743px;
+    width: border-box;
+}
+#fz-map-show{
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    height: 654px;
+    width: content-box;
+}
+#fz-video-show{
+    margin: 0px;
+    border: 0px solid cyan;
+    padding: 0px;
+    height: 654px;
+    width: content-box;
+
+}
+/*#fz-video-player{*/
+    /*margin: 0px;*/
+    /*border: 0px;*/
+    /*padding: 0px;*/
+    /*height: 654px;*/
+    /*width: content-box;*/
+/*}*/
