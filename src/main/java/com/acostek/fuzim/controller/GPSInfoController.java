@@ -10,31 +10,18 @@ import java.util.Map;
 import static com.acostek.fuzim.util.ForwardRequest.net;
 
 @RestController
-@RequestMapping(value = "getShip")
-public class ShipInfoController {
-
-    @RequestMapping(value = "SimpleInfo",method = RequestMethod.GET)
-    public String shipInfoAPI(){
-        String info = null;
-        Map map = new HashMap();
-        try {
-            info = net("GET","","http://faultest.com:8080/templefuzi/shipDef/getAllShipDef",map,"");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return info;
-    }
+@RequestMapping(value = "getGPS")
+public class GPSInfoController {
 
     @RequestMapping(value = "FullInfo",method = RequestMethod.GET)
-    public String shipFullInfoAPI(){
+    public String GPSInfoAPI(){
         String fullInfo = null;
         Map map = new HashMap();
         try {
-            fullInfo = net("GET","","http://faultest.com:8080/templefuzi/shipInfo/getAllShipInfo",map,"");
+            fullInfo = net("GET","","http://faultest.com:8080/templefuzi/gps/getAllNowGPS",map,"");
         } catch (Exception e) {
             e.printStackTrace();
         }
         return fullInfo;
     }
-
 }
