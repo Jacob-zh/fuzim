@@ -13,45 +13,42 @@
     });
 
     //第一个表格内容填充
-    // function tabsOne() {
-    //     var GETAPI_1 = "http://faultest.com:8080/templefuzi/shipDef/getAllShipDef";
-    //     $.getJSON(GETCLASSES,{},function(json){
-    //        console.log(json);
-    //     });
-    //     $.getJSON("http://eezzo.com/API/CD",{url:encodeURI(GETAPI_1)},function(json){
-    //         // console.log(data);
-    //         var t = $("#temp-tabs1-tr").html();
-    //         var f = Handlebars.compile(t);
-    //         var h = f(json.data);
-    //         $("#tabs1-tr").html(h);
-    //     });
-    // }
-
+    function tabsOne() {
+        var GETAPI_1 = "http://127.0.0.1:9090/getShip/SimpleInfo";
+        $.getJSON(GETAPI_1,{},function(json){
+           console.log(json);
+            var t = $("#temp-tabs1-tr").html();
+            var f = Handlebars.compile(t);
+            var h = f(json.data);
+            $("#tabs1-tr").html(h);
+        });
+        // $.getJSON("http://eezzo.com/API/CD",{url:encodeURI(GETAPI_1)},function(json){ });
+    }
+    tabsOne();
     //第二个表格内容填充
-    // Handlebars.registerHelper("iswarn", function (value, options) {
-    //     console.log("iswarn");
-    //     if(value == 1){
-    //         return options.fn(this);
-    //     }else {
-    //         return options.inverse(this);
-    //     }
-    // });
-    // function tabsTwo() {
-    //     var GETAPI_2 = "http://faultest.com:8080/templefuzi/shipInfo/getAllShipInfo";
-    //     $.getJSON("http://eezzo.com/API/CD",{url:encodeURI(GETAPI_2)},function(json){
-    //         var t = $("#temp-tabs2-tr").html();
-    //         var f =Handlebars.compile(t);
-    //         var h = f(json.data);
-    //         $("#tabs2-tr").html(h);
-    //     });
-    //
-    // }
-
+    Handlebars.registerHelper("iswarn", function (value, options) {
+        // console.log("iswarn");
+        if(value == 1){
+            return options.fn(this);
+        }else {
+            return options.inverse(this);
+        }
+    });
+    function tabsTwo() {
+        var GETAPI_2 = "http://127.0.0.1:9090/getShip/FullInfo";
+        $.getJSON(GETAPI_2,{},function(json){
+            var t = $("#temp-tabs2-tr").html();
+            var f =Handlebars.compile(t);
+            var h = f(json.data);
+            $("#tabs2-tr").html(h);
+        });
+    }
+    tabsTwo();
     //第三个页面内容填充
     //地图初始化
     var fzmap = new AMap.Map("tabs3-map-show", {
         center: [118.789496, 32.019428],
-        zoom: 12
+        zoom: 14
     });
     fzmap.plugin(['AMap.ToolBar','AMap.Scale'], function () {
         fzmap.addControl(new AMap.ToolBar());
@@ -179,8 +176,6 @@
         });
     }
 
-    markPoint();
-    // tabsFour()
 
 
 })(jQuery)
