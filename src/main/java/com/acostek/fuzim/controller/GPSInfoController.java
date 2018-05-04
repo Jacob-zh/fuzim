@@ -16,15 +16,14 @@ public class GPSInfoController {
 
     @RequestMapping(value = "FullInfo",method = RequestMethod.GET)
     public String GPSInfoAPI(){
-        String fullInfo = null;
         String coord = null;
-        Map map = new HashMap();
         try {
-            fullInfo = net("GET","","http://faultest.com:8080/templefuzi/gps/getAllNowGPS",map,"");
-//            System.out.println("111"+fullInfo.toString());
+            Map map = new HashMap();
+            String fullInfo = net("GET","","http://faultest.com:8080/templefuzi/gps/getAllNowGPS",map,"");
             coord = coordDeal(fullInfo);//GPS坐标处理
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            return "{"+"\"code\""+":"+"\"0\""+","+"\"msg\""+":"+"\"error\""+"}";
         }
         return coord;
     }

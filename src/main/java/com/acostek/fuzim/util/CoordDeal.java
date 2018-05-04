@@ -28,7 +28,7 @@ public class CoordDeal {
         if("1".equals(gpsInfo.get("code").getAsString())){
             JsonArray dataArray = gpsInfo.getAsJsonArray("data");
             int gpsInfoNum = dataArray.size(); //gps信息的个数
-            ArrayList<GPSInfoModel> gpsInfoModels = new ArrayList<GPSInfoModel>(gpsInfoNum); //GPS信息集合数组
+            ArrayList<GPSInfoModel> gpsInfoModels = new ArrayList<>(gpsInfoNum); //GPS信息集合数组
             //填充集合
             Gson gson = new Gson();
             for(JsonElement obj : dataArray ){
@@ -55,9 +55,9 @@ public class CoordDeal {
             JsonArray JsonArray = new JsonArray(); //返回的Json坐标集合
             JsonObject JsonObject = new JsonObject(); //返回的Json对象
             for (int i =0; i<transNum; i++){
-                Map map = new HashMap();
+                Map<String, String> map = new HashMap<>();
                 map.put("key","9e3490ab7e2e882522a3ef063baafb41");
-                map.put("locations",coordParams[i].toString());
+                map.put("locations", coordParams[i]);
                 map.put("coordsys","gps");
                 map.put("output","json");
                 try {
@@ -86,6 +86,8 @@ public class CoordDeal {
             JsonObject.addProperty("code","1");
             JsonObject.add("data",JsonArray); //构建返回对象
             newGpsInfo = JsonObject.toString(); //返回Json字符串
+        }else {
+            newGpsInfo = coordStr;
         }
         return newGpsInfo;
     }

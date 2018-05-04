@@ -1,5 +1,7 @@
 package com.acostek.fuzim.controller;
 
+import com.acostek.fuzim.util.ForwardRequest;
+import com.acostek.fuzim.util.ShipInfoDeal;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.acostek.fuzim.util.ForwardRequest.net;
 
 @RestController
 @RequestMapping(value = "getShip")
@@ -18,7 +19,7 @@ public class ShipInfoController {
         String info = null;
         Map map = new HashMap();
         try {
-            info = net("GET","","http://faultest.com:8080/templefuzi/shipDef/getAllShipDef",map,"");
+            info = ForwardRequest.net("GET","","http://faultest.com:8080/templefuzi/shipDef/getAllShipDef",map,"");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,7 +31,8 @@ public class ShipInfoController {
         String fullInfo = null;
         Map map = new HashMap();
         try {
-            fullInfo = net("GET","","http://faultest.com:8080/templefuzi/shipInfo/getAllShipInfo",map,"");
+             String str = ForwardRequest.net("GET","","http://faultest.com:8080/templefuzi/shipInfo/getAllShipInfo",map,"");
+            fullInfo = ShipInfoDeal.sortShipFullInfo(str);
         } catch (Exception e) {
             e.printStackTrace();
         }

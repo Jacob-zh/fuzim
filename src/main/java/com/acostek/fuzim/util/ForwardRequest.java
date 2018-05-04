@@ -1,6 +1,8 @@
 package com.acostek.fuzim.util;
 
 import com.google.gson.Gson;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -16,8 +18,8 @@ import java.util.Map;
 public class ForwardRequest {
 
     private static final String DEF_CHATSET = "UTF-8";
-    private static final int DEF_CONN_TIMEOUT = 60000; //设置时延
-    private static final int DEF_READ_TIMEOUT = 60000;
+    private static final int DEF_CONN_TIMEOUT = 10000; //设置时延
+    private static final int DEF_READ_TIMEOUT = 10000;
     private static String userAgent = "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.66 Safari/537.36";
 
     /**
@@ -73,19 +75,20 @@ public class ForwardRequest {
                     } else {
                         out.writeBytes(urlencode(params));
                     }
-                } catch (Exception e) {
-                   e.printStackTrace();
+                } catch (IOException e1) {
+//                   e1.printStackTrace();
                 }
             }
             InputStream is = conn.getInputStream();
             reader = new BufferedReader(new InputStreamReader(is, DEF_CHATSET));
-            String strRead = null;
+            String strRead;
             while ((strRead = reader.readLine()) != null) {
                 sb.append(strRead);
             }
             rs = sb.toString();
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+
         } finally {
             if (reader != null) {
                 reader.close();
@@ -98,9 +101,9 @@ public class ForwardRequest {
     }
 
     //将map型转为请求参数型（get访问时使用）
-    public static String urlencode(Map<String, Object> data) {
+    private static String urlencode(Map<String, Object> data) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry i : data.entrySet()) {
+        for (Map.Entry<String, Object> i : data.entrySet()) {
             try {
                 sb.append(i.getKey()).append("=").append(URLEncoder.encode(i.getValue() + "", "UTF-8")).append("&");
             } catch (UnsupportedEncodingException e) {
