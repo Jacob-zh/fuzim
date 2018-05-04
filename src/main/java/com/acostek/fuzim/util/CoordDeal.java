@@ -16,57 +16,77 @@ import static com.acostek.fuzim.util.ForwardRequest.net;
 public class CoordDeal {
 
     private static String newGpsInfo;
+    private final static short num = 39; //高的地图API一次请求最多转换坐标数
+
     /**
      * 将原坐标转换为高德坐标并以json字符串返回新坐标
      * @param coordStr 原坐标以json字符串的形式传入
      * @return 新坐标 Json格式String
      */
     public static String coordDeal(String coordStr){
-        Gson gson = new Gson();
         JsonObject gpsInfo = new JsonParser().parse(coordStr).getAsJsonObject();
-//        System.out.println("222"+gpsInfo.toString());
-
         if("1".equals(gpsInfo.get("code").getAsString())){
             JsonArray dataArray = gpsInfo.getAsJsonArray("data");
-//            System.out.println("333"+dataArray.toString());
-            ArrayList<GPSInfoModel> gpsModels = new ArrayList<GPSInfoModel>();
+            int gpsInfoNum = dataArray.size(); //gps信息的个数
+            ArrayList<GPSInfoModel> gpsInfoModels = new ArrayList<GPSInfoModel>(gpsInfoNum); //GPS信息集合数组
+            //填充集合
+            Gson gson = new Gson();
             for(JsonElement obj : dataArray ){
                 GPSInfoModel gps = gson.fromJson( obj , GPSInfoModel.class);
-                gpsModels.add(gps);
+                gpsInfoModels.add(gps);
             }
-            int dataLength = gpsModels.size(); //gps信息的个数
-//            System.out.println("gps信息的个数"+dataLength);
-            int num = dataLength/9 + 1; //需要调用几次转换API
-            String[] coordParams = new String[num];
+            int transNum = gpsInfoNum/num + 1; //需要调用几次转换API
+            String[] coordParams = new String[transNum]; //存放每次要转换的坐标串
 //            System.out.println("num"+num);
-            if(num > 1){
-                for(int i=0; i<num ; i++){
-                    coordParams[i] = "118.796152,32.026073";
-                    for(int j=i*9; j<(i+1)*9 && j < dataLength ;j++){
-                       coordParams[i] = coordParams[i] + "|"+ gpsModels.get(j).getLongitude()+","+gpsModels.get(j).getLatitude();
+            if(transNum > 1){
+                for(int i=0; i < transNum; i++){
+                    coordParams[i] = "118.796152,32.026073"; //夫子庙点起始标注点
+                    for(int j=i*num; j<(i+1)*num && j < gpsInfoNum ;j++){
+                       coordParams[i] = coordParams[i] + "|" + gpsInfoModels.get(j).getLongitude()+","+gpsInfoModels.get(j).getLatitude() ;
                     }
                 }
             }else{
-                coordParams[0] = "118.796152,32.026073";//夫子庙点起始标注点
-                for(int i=0; i < dataLength; i++){
-                    coordParams[0] =  coordParams[0]+"|"+ gpsModels.get(i).getLongitude()+","+gpsModels.get(i).getLatitude();
+                coordParams[0] ="118.796152,32.026073";
+                for(int i=0; i < gpsInfoNum; i++){
+                    coordParams[0] =  coordParams[0] + "|" + gpsInfoModels.get(i).getLongitude()+","+gpsInfoModels.get(i).getLatitude();
                 }
             }
-            for (int i =0; i<coordParams.length;i++){
+            //转换坐标
+            JsonArray JsonArray = new JsonArray(); //返回的Json坐标集合
+            JsonObject JsonObject = new JsonObject(); //返回的Json对象
+            for (int i =0; i<transNum; i++){
                 Map map = new HashMap();
                 map.put("key","9e3490ab7e2e882522a3ef063baafb41");
                 map.put("locations",coordParams[i].toString());
                 map.put("coordsys","gps");
                 map.put("output","json");
                 try {
-                    newGpsInfo = net("GET","","http://restapi.amap.com/v3/assistant/coordinate/convert",map,"");
+                    String reStr = net("GET","","http://restapi.amap.com/v3/assistant/coordinate/convert",map,"");
+                    JsonObject locationStr = new JsonParser().parse(reStr).getAsJsonObject();
+                    if(locationStr.get("infocode").getAsString().equals("10000")){
+                        String locations = locationStr.get("locations").getAsString();
+                        //切割字符串
+                        String[] coords = locations.split(";");
+                        //更改GPS对象中的坐标数据
+                        String[] locationCorrd;
+                        for (int k = 1; k < coords.length ; k++) {
+                            int index = i * num + k - 1; //要更改的GPS对象所引
+                            locationCorrd = coords[k].split(",");
+                            gpsInfoModels.get(index).setLongitude(Double.parseDouble(locationCorrd[0]));
+                            gpsInfoModels.get(index).setLatitude(Double.parseDouble(locationCorrd[1]));
+                            JsonArray.add(gpsInfoModels.get(index).toString()); //构建返回坐标集合
+                        }
+                    }else{
+                        break;
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
+            JsonObject.addProperty("code","1");
+            JsonObject.add("data",JsonArray); //构建返回对象
+            newGpsInfo = JsonObject.toString(); //返回Json字符串
         }
-
         return newGpsInfo;
     }
 }
