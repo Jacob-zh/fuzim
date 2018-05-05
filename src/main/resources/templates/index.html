@@ -15,11 +15,12 @@
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/handlebars.min.js"></script><!--Handlebars引擎-->
     <script src="js/amazeui.js"></script>
+
 </head>
 
 <body>
+
 <script src="https://open.ys7.com/sdk/js/1.3/ezuikit.js"></script><!--萤石直播-->
-<script src="http://webapi.amap.com/maps?v=1.4.4&key=1a8d6e84d881926f1ae9825b127b02bc"></script><!--高德地图-->
 
 <header data-am-widget="header" class="am-header am-header-default">
     <h1 class="am-header-title">夫子庙游船监控<!--<img src="http://s.amazeui.org/media/i/brand/amazeui-cw.png" />--></h1>
@@ -32,15 +33,15 @@
 <div data-am-widget="tabs" class="fz-tabs-round am-tabs am-tabs-d2 am-scrollable-vertical">
     <!--选项标题栏-->
     <ul class=" am-tabs-nav am-cf">
-        <li id="fz-baseInfo" class="am-active"><a href="[data-tab-panel-0]">基本信息</a></li>
+        <li id="fz-baseInfo" class=""><a href="[data-tab-panel-0]">基本信息</a></li>
         <li id="fz-detialInfo" type="buttun" class=""><a href="[data-tab-panel-1]">详细状态</a></li>
-        <li id="fz-map" class=""><a href="[data-tab-panel-2]">地图标识</a></li>
+        <li id="fz-map" class="am-active"><a href="[data-tab-panel-2]">地图标识</a></li>
         <li id="fz-video" class=""><a href="[data-tab-panel-3]">视频传输</a></li>
     </ul>
     <!--标题对应的盘子-->
-    <div class="am-tabs-bd">
+    <div class="fz-tabs-panel am-tabs-bd">
         <!--基本信息-->
-        <div data-tab-panel-0 class="am-active am-tab-panel ">
+        <div data-tab-panel-0 class=" am-tab-panel ">
             <!--搜索框-->
             <!--<div class="am-g">-->
                 <!--<div class="am-u-lg-12">-->
@@ -62,7 +63,9 @@
                         <th>船只状态</th>
                     </tr>
                     </thead>
-                    <tbody id="tabs1-tr"> </tbody>
+                    <tbody id="tabs1-tr">
+
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -88,26 +91,23 @@
                         <th title="当前电池信息">电池</th>
                     </tr>
                     </thead>
-                    <tbody id="tabs2-tr"></tbody>
+                    <tbody id="tabs2-tr">
+
+                    </tbody>
                 </table>
             </div>
         </div>
         <!--地图信息-->
-        <div data-tab-panel-2 class="am-tab-panel">
+        <div data-tab-panel-2 class="am-active am-tab-panel">
             <div id="tabs3-map-show" class="">
 
             </div>
         </div>
+
         <!--视频信息-->
         <div data-tab-panel-3 class="am-tab-panel ">
-            </div>
-                <!--<div id="fz-video-show">-->
-                    <!--<video id="fz-video-player" poster="" controls playsInline webkit-playsinline autoplay>-->
-                        <!--<source src="rtmp://rtmp.open.ys7.com/openlive/c2b99ded8a634e52bd3be59c099ca878.hd" type="" />-->
-                        <!--<source src="http://hls.open.ys7.com/openlive/c2b99ded8a634e52bd3be59c099ca878.hd.m3u8" type="application/x-mpegURL" />-->
-                    <!--</video>-->
-                <!--</div>-->
-            </div>
+
+        </div>
     </div>
 </div>
 
@@ -116,7 +116,7 @@
         <p>
         <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
         由<a href="http://www.acostek.net/" title="声准科技"
-            target="_blank" class="">声准科技</a>
+            target="_blank" class="">ACOSTEK</a>
         提供技术支持
     </div>
 </footer>
@@ -160,7 +160,7 @@
     {{/each}}
 </script>
 
-
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=1a8d6e84d881926f1ae9825b127b02bc"></script>
 <script src="js/app.js"></script>
 
 </body>

@@ -1,10 +1,11 @@
 package com.acostek.fuzim.util;
 
-import com.acostek.fuzim.GPSInfoModel;
+import com.acostek.fuzim.model.GPSInfoModel;
 import com.google.gson.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.acostek.fuzim.util.ForwardRequest.net;
@@ -54,6 +55,7 @@ public class CoordDeal {
             //转换坐标
             JsonArray JsonArray = new JsonArray(); //返回的Json坐标集合
             JsonObject JsonObject = new JsonObject(); //返回的Json对象
+            List<String> dataStr = new ArrayList<>();
             for (int i =0; i<transNum; i++){
                 Map<String, String> map = new HashMap<>();
                 map.put("key","9e3490ab7e2e882522a3ef063baafb41");
@@ -69,12 +71,13 @@ public class CoordDeal {
                         String[] coords = locations.split(";");
                         //更改GPS对象中的坐标数据
                         String[] locationCorrd;
+                        JsonParser JsonOb = new JsonParser();
                         for (int k = 1; k < coords.length ; k++) {
                             int index = i * num + k - 1; //要更改的GPS对象所引
                             locationCorrd = coords[k].split(",");
                             gpsInfoModels.get(index).setLongitude(Double.parseDouble(locationCorrd[0]));
                             gpsInfoModels.get(index).setLatitude(Double.parseDouble(locationCorrd[1]));
-                            JsonArray.add(gpsInfoModels.get(index).toString()); //构建返回坐标集合
+                            JsonArray.add(JsonOb.parse(gson.toJson(gpsInfoModels.get(index))).getAsJsonObject()); //构建返回坐标集合
                         }
                     }else{
                         break;

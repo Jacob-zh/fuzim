@@ -63,8 +63,8 @@ public class ShipInfoDeal {
             if(!shipInfoInNomal.isEmpty())
                 newShipInfos.addAll(shipInfoInNomal);
             //构造返回字符串
-            newShipInfo = "{"+"\"code\""+":"+"\"1\""+","+"\"data\""+":"+ newShipInfos.toString() + "}";
-            System.out.println(newShipInfo);
+            newShipInfo = "{"+"\"code\" :"+"\"1\","+"\"data\" :"+ newShipInfos.toString() + "}";
+//            System.out.println(newShipInfo);
             }else{
                 newShipInfo = shipInfos.toString();
             }

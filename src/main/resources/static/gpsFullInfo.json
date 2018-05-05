@@ -1,0 +1,109 @@
+{
+  "code": "1",
+  "data": [
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0926644,
+      "longitude": 118.5985204,
+      "shipId": 8,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0926644,
+      "longitude": 118.6185204,
+      "shipId": 2,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0926644,
+      "longitude": 118.5865204,
+      "shipId": 3,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0936644,
+      "longitude": 118.5975204,
+      "shipId": 4,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0938644,
+      "longitude": 118.5955204,
+      "shipId": 5,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0929644,
+      "longitude": 118.5894204,
+      "shipId": 6,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0919644,
+      "longitude": 118.5795204,
+      "shipId": 7,
+      "speed": 4.64
+    },
+    {
+      "gpsLatdir": "N",
+      "gpsLondir": "E",
+      "gpsMagvar": 0.4,
+      "gpsModeInd": "V",
+      "gpsTime": 20180114133454,
+      "gpsTrackTure": 108.4,
+      "gpsVardir": "W",
+      "latitude": 32.0908644,
+      "longitude": 118.5809204,
+      "shipId": 1,
+      "speed": 4.64
+    }
+  ]
+}

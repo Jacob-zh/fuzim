@@ -3,24 +3,29 @@
     margin: 0em;
     border: solid 5px #dddddd;
     padding: 0px;
-    height: 743px;
+    height: 722px;
     width: border-box;
 }
-#fz-map-show{
+#tabs3-map-show{
     margin: 0px;
-    border: 0px;
+    border-top: solid 2px #dddddd;
+    border-bottom: solid 2px #dddddd;
     padding: 0px;
-    height: 654px;
-    width: content-box;
+    height: 670px;
+    width: border-box;
 }
 #fz-video-show{
     margin: 0px;
     border: 0px solid cyan;
     padding: 0px;
-    height: 654px;
+    height: 670px;
     width: content-box;
 
 }
+.fz-tabs-panel{
+    height: 670px;
+}
+
 /*#fz-video-player{*/
     /*margin: 0px;*/
     /*border: 0px;*/

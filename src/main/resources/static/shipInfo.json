@@ -1,0 +1,29 @@
+{
+  "code": "1",
+  "data": [
+    {
+      "shipId": 1,
+      "shipName": "和谐1号",
+      "shipNote": "舒适",
+      "shipStatus": "1"
+    },
+    {
+      "shipId": 3,
+      "shipName": "和谐3号",
+      "shipNote": "舒适",
+      "shipStatus": "0"
+    },
+    {
+      "shipId": 4,
+      "shipName": "和谐4号",
+      "shipNote": "舒适",
+      "shipStatus": "1"
+    },
+    {
+      "shipId": 2,
+      "shipName": "和谐2号",
+      "shipNote": "舒适",
+      "shipStatus": "1"
+    }
+  ]
+}

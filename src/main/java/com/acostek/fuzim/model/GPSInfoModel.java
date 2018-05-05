@@ -1,4 +1,4 @@
-package com.acostek.fuzim;
+package com.acostek.fuzim.model;
 
 
 public class GPSInfoModel {
