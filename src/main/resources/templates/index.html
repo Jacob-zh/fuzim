@@ -11,16 +11,14 @@
     <!-- Amaze UI CSS -->
     <link rel="stylesheet" href="css/amazeui.css">
     <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="https://cache.amap.com/lbs/static/main1119.css"/>
+    <link rel="stylesheet" href="css/leftClickInfoWD.css">
 
     <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="js/handlebars.min.js"></script><!--Handlebars引擎-->
     <script src="js/amazeui.js"></script>
-
 </head>
-
 <body>
-
-<script src="https://open.ys7.com/sdk/js/1.3/ezuikit.js"></script><!--萤石直播-->
 
 <header data-am-widget="header" class="am-header am-header-default">
     <h1 class="am-header-title">夫子庙游船监控<!--<img src="http://s.amazeui.org/media/i/brand/amazeui-cw.png" />--></h1>
@@ -33,25 +31,25 @@
 <div data-am-widget="tabs" class="fz-tabs-round am-tabs am-tabs-d2 am-scrollable-vertical">
     <!--选项标题栏-->
     <ul class=" am-tabs-nav am-cf">
-        <li id="fz-baseInfo" class=""><a href="[data-tab-panel-0]">基本信息</a></li>
+        <li id="fz-baseInfo" class="am-active"><a href="[data-tab-panel-0]">基本信息</a></li>
         <li id="fz-detialInfo" type="buttun" class=""><a href="[data-tab-panel-1]">详细状态</a></li>
-        <li id="fz-map" class="am-active"><a href="[data-tab-panel-2]">地图标识</a></li>
+        <li id="fz-map" class=""><a href="[data-tab-panel-2]">地图标识</a></li>
         <li id="fz-video" class=""><a href="[data-tab-panel-3]">视频传输</a></li>
     </ul>
     <!--标题对应的盘子-->
     <div class="fz-tabs-panel am-tabs-bd">
         <!--基本信息-->
-        <div data-tab-panel-0 class=" am-tab-panel ">
+        <div data-tab-panel-0 class="am-active  am-tab-panel ">
             <!--搜索框-->
             <!--<div class="am-g">-->
-                <!--<div class="am-u-lg-12">-->
-                    <!--<div class="am-input-group">-->
-                        <!--<input type="text" class="am-form-field" placeholder="输入要查询的游船编号">-->
-                        <!--<span class="am-input-group-btn">-->
-                            <!--<button class="am-btn am-btn-default" type="button"><span class="am-icon-search"></span> </button>-->
-                            <!--</span>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="am-u-lg-12">-->
+            <!--<div class="am-input-group">-->
+            <!--<input type="text" class="am-form-field" placeholder="输入要查询的游船编号">-->
+            <!--<span class="am-input-group-btn">-->
+            <!--<button class="am-btn am-btn-default" type="button"><span class="am-icon-search"></span> </button>-->
+            <!--</span>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
             <div class="am-scrollable-horizontal">
                 <table class="am-table am-table-bordered am-table-striped am-text-nowrap">
@@ -98,15 +96,19 @@
             </div>
         </div>
         <!--地图信息-->
-        <div data-tab-panel-2 class="am-active am-tab-panel">
+        <div data-tab-panel-2 class="am-tab-panel">
             <div id="tabs3-map-show" class="">
 
             </div>
         </div>
-
         <!--视频信息-->
-        <div data-tab-panel-3 class="am-tab-panel ">
-
+        <div id="fz-video-show" data-tab-panel-3 class="am-tab-panel ">
+            <div id="tabs4-video-show">
+                <video id="fz-video-player" poster="" controls playsInline webkit-playsinline autoplay>
+                    <source src="rtmp://rtmp.open.ys7.com/openlive/c2b99ded8a634e52bd3be59c099ca878" type="" />
+                    <source src="http://hls.open.ys7.com/openlive/c2b99ded8a634e52bd3be59c099ca878.m3u8" type="application/x-mpegURL" />
+                </video>
+            </div>
         </div>
     </div>
 </div>
@@ -116,7 +118,7 @@
         <p>
         <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
         由<a href="http://www.acostek.net/" title="声准科技"
-            target="_blank" class="">ACOSTEK</a>
+            target="_blank" class="">AEOSTEK</a>
         提供技术支持
     </div>
 </footer>
@@ -124,44 +126,47 @@
 <!--handlebars模板-->
 <script id="temp-tabs1-tr" type="text/x-handlebars-template">
     {{#each this}}
-        <tr>
-            <td>{{shipId}}</td>
-            <td>{{shipName}}</td>
-            <td>{{shipNote}}</td>
-            <td>{{shipStatus}}</td>
-        </tr>
+    <tr>
+        <td>{{shipId}}</td>
+        <td>{{shipName}}</td>
+        <td>{{shipNote}}</td>
+        <td>{{shipStatus}}</td>
+    </tr>
     {{/each}}
 </script>
 <script id="temp-tabs2-tr" type="text/x-handlebars-template">
     {{#each this}}
-        <tr>
-            <td>{{shipId}}</td>
-            <td>{{ioTimes}}</td>
-            <td {{#iswarn overSpeed}} style="background-color:#ff6600" {{/iswarn}} title="超速报警:(1:危险，0:正常),当前为:{{overSpeed}}">{{speed}}</td>
-            <td title="
+    <tr>
+        <td>{{shipId}}</td>
+        <td>{{ioTimes}}</td>
+        <td {{#iswarn overSpeed}} style="background-color:#ff6600" {{/iswarn}} title="超速报警:(1:危险，0:正常),当前为:{{overSpeed}}">{{speed}}</td>
+        <td title="
 上次船只运行起始时间：{{startRunTime}}
 上次船只运行终止时间：{{endRunTime}}">{{runTime}}</td>
-            <td {{#iswarn wait}} style="background-color: #0033ff" {{/iswarn}} >{{wait}}</td>
-            <td {{#iswarn collide}} style="background-color: #cc0000;" {{/iswarn}} title="撞船报警:(1:危险，0:正常),当前为:{{collide}}">{{ultrasonicValue}}</td>
-            <td {{#iswarn leakage}} style="background-color: #cc0000;" {{/iswarn}} title="漏水报警:(1:危险，0:正常),当前为:{{leakage}}">{{waterValue}}</td>
-            <td {{#iswarn overSmog}} style="background-color: #cc0000;" {{/iswarn}} title="烟雾报警:(1:危险，0:正常),当前为:{{overSmog}}">{{smogValue}}</td>
-            <td {{#iswarn overFire}} style="background-color: #cc0000;" {{/iswarn}} title="明火报警:(1:危险，0:正常),当前为:{{overFire}}">{{fireValue}}</td>
-            <td title="
+        <td {{#iswarn wait}} style="background-color: #0033ff" {{/iswarn}} >{{wait}}</td>
+        <td {{#iswarn collide}} style="background-color: #cc0000;" {{/iswarn}} title="撞船报警:(1:危险，0:正常),当前为:{{collide}}">{{ultrasonicValue}}</td>
+        <td {{#iswarn leakage}} style="background-color: #cc0000;" {{/iswarn}} title="漏水报警:(1:危险，0:正常),当前为:{{leakage}}">{{waterValue}}</td>
+        <td {{#iswarn overSmog}} style="background-color: #cc0000;" {{/iswarn}} title="烟雾报警:(1:危险，0:正常),当前为:{{overSmog}}">{{smogValue}}</td>
+        <td {{#iswarn overFire}} style="background-color: #cc0000;" {{/iswarn}} title="明火报警:(1:危险，0:正常),当前为:{{overFire}}">{{fireValue}}</td>
+        <td title="
 本数据创建时间：{{gpsTime}}
 磁偏角(E:东 W:西)：{{gpsVardir}}:{{gpsMagvar}}
 地面航向角:{{gpsTrackTure}}
 经度(N:北 S:南)：{{gpsLondir}}:{{longitude}}
 纬度(E:东 W:西)：{{gpsLatdir}}:{{latitude}}">{{gpsModeInd}}</td>
-            <td title="本电机当前转速(1:2)">{{motorSpeed1}}:{{motorSpeed2}}</td>
-            <td title="本电机当前电流(1:2)">{{motorCurrent1}}:{{motorCurrent2}}</td>
-            <td title="本电机当前电压(1:2)">{{motorVoltage1}}:{{motorVoltage2}}</td>
-            <td title="显示当前的电池信息">{{hardware}}</td>
-        </tr>
+        <td title="本电机当前转速(1:2)">{{motorSpeed1}}:{{motorSpeed2}}</td>
+        <td title="本电机当前电流(1:2)">{{motorCurrent1}}:{{motorCurrent2}}</td>
+        <td title="本电机当前电压(1:2)">{{motorVoltage1}}:{{motorVoltage2}}</td>
+        <td title="显示当前的电池信息">{{hardware}}</td>
+    </tr>
     {{/each}}
 </script>
 
 <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.6&key=1a8d6e84d881926f1ae9825b127b02bc"></script>
 <script src="js/app.js"></script>
+
+<script src="https://open.ys7.com/sdk/js/1.3/ezuikit.js"></script><!--萤石直播-->
+<script src="js/videoShow.js"></script> <!--视频处理-->
 
 </body>
 </html>
